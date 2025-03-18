@@ -71,6 +71,20 @@ const stopScanner = () => {
   }
 };
 
+const requestCameraPermission = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    stream.getTracks().forEach((track) => track.stop()); // Fecha a câmera após testar
+    console.log("Permissão concedida!");
+  } catch (error) {
+    console.error("Permissão negada ou erro na câmera:", error);
+  }
+};
+
+onMounted(() => {
+  requestCameraPermission();
+});
+
 onUnmounted(() => {
   stopScanner();
 });
