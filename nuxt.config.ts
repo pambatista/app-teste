@@ -3,21 +3,19 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
 
-  app: {
-    baseURL: "/pambatista/app-teste", // 🔹 Substitua pelo nome do seu repositório no GitHub
-  },
-
   modules: ["@vite-pwa/nuxt"],
 
   pwa: {
-    registerType: "autoUpdate", // Atualiza automaticamente o service worker
+    registerType: "autoUpdate",
     manifest: {
-      name: "Meu App PWA",
-      short_name: "MeuPWA",
-      description: "Meu primeiro PWA com Nuxt 3!",
+      name: "Meu App",
+      short_name: "MeuApp",
+      description: "Um PWA para ler QR Codes",
       theme_color: "#ffffff",
       background_color: "#ffffff",
-      display: "standalone",
+      display: "standalone", // 🔹 Permite abrir sem barra de endereços
+      start_url: "/", // 🔹 Garante que abra na página inicial
+      scope: "/",
       icons: [
         {
           src: "/icon-192x192.png",
@@ -33,11 +31,22 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: "/",
-      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/seu-api\.com\//,
+          handler: "NetworkFirst",
+          options: {
+            cacheName: "api-cache",
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 86400,
+            },
+          },
+        },
+      ],
     },
-    devOptions: {
-      enabled: true, // Habilita o PWA em ambiente de desenvolvimento
-      type: "module",
-    },
+  },
+  app: {
+    baseURL: "/",
   },
 });
