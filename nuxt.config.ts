@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
+
+  app: {
+    baseURL: "/pambatista/app-teste", // 🔹 Substitua pelo nome do seu repositório no GitHub
+  },
+
   modules: ["@vite-pwa/nuxt"],
 
   pwa: {
