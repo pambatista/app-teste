@@ -81,9 +81,9 @@ const requestCameraPermission = async () => {
   }
 };
 
-onMounted(() => {
-  requestCameraPermission();
-});
+// onMounted(() => {
+//   requestCameraPermission();
+// });
 
 onUnmounted(() => {
   stopScanner();
